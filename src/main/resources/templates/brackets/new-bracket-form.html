@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Bracket</title>
+    <link rel="stylesheet" href="/style/index.css"/>
+    <link rel="stylesheet" href="/style/brackets/new-bracket-form.css"/>
+    <script src="/script/brackets/new-bracket-form.js"></script>
+</head>
+<body>
+<form>
+    <fieldset class="new-bracket-fieldset">
+        <legend>Create a new Bracket</legend>
+        <label class="input-label" for="bracket-title">
+            Bracket Title:
+        </label>
+        <input class="text-input" id="bracket-title" name="title" type="text" placeholder="An Interesting Title"/>
+        <label class="input-label" for="bracket-description">
+            Description:
+        </label>
+        <textarea class="text-input" id="bracket-description" name="description" placeholder="Set an interesting description here"></textarea>
+        <label class="input-label" for="bracket-rules">
+            Rules:
+        </label>
+        <div class="rules-container">
+            <input class="text-input" id="bracket-rules" name="rules" type="text" placeholder="Add a new rule to the bracket">
+            <button class="add-button" type="button">Add</button>
+        </div>
+        <button class="submit-button main-button" type="submit">Submit</button>
+    </fieldset>
+</form>
+</body>
+</html>

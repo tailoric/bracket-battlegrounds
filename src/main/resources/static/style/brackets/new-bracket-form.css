@@ -1,0 +1,45 @@
+.new-bracket-fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.add-button{
+    background: #007cab;
+    color: white;
+}
+.input-label{
+    margin-top: 1em;
+}
+.text-input{
+    border-radius: 3px;
+    border: 1px silver solid;
+    padding-left: 1em;
+}
+.text-input:focus-visible{
+    outline: none;
+    border: #007cab 1px solid;
+}
+textarea.text-input{
+    padding-top: 1em;
+}
+.add-button{
+    border: 1px silver solid;
+    border-left: none;
+}
+.text-input:focus-visible + .add-button{
+    border: #007cab 1px solid;
+}
+.rules-container{
+    display: flex;
+    flex-direction: row;
+
+}
+#bracket-rules{
+    flex-grow: 2;
+    border-right: none;
+    border-radius: 3px 0 0 3px;
+}
+.submit-button{
+    margin-top: 2em;
+    max-width: 10em;
+}
