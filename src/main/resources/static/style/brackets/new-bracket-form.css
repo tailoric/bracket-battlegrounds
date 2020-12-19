@@ -4,7 +4,7 @@
     justify-content: space-between;
 }
 .add-button{
-    background: #007cab;
+    background: var(--color-main-400);
     color: white;
 }
 .input-label{
@@ -14,10 +14,12 @@
     border-radius: 3px;
     border: 1px silver solid;
     padding-left: 1em;
+    max-width: 80vw;
 }
 .text-input:focus-visible{
     outline: none;
     border: #007cab 1px solid;
+    color: var(--color-heavy-600);
 }
 textarea.text-input{
     padding-top: 1em;
@@ -33,11 +35,6 @@ textarea.text-input{
     display: flex;
     flex-direction: row;
 
-}
-#bracket-rules{
-    flex-grow: 2;
-    border-right: none;
-    border-radius: 3px 0 0 3px;
 }
 .submit-button{
     margin-top: 2em;
