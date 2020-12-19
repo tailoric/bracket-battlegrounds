@@ -9,5 +9,4 @@ class BracketBattlegroundsApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

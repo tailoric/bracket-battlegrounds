@@ -1,32 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create new Bracket</title>
-    <link rel="stylesheet" href="/style/index.css"/>
+    <link rel="stylesheet" href="/style/main.css"/>
     <link rel="stylesheet" href="/style/brackets/new-bracket-form.css"/>
-    <script src="/script/brackets/new-bracket-form.js"></script>
+<!--    <script src="/script/brackets/new-bracket-form.js" defer></script>-->
 </head>
 <body>
-<form>
+<form action="#" class="new-bracket-form" method="post"  th:action="@{/brackets/new}" th:object="${bracket}">
     <fieldset class="new-bracket-fieldset">
         <legend>Create a new Bracket</legend>
         <label class="input-label" for="bracket-title">
             Bracket Title:
         </label>
-        <input class="text-input" id="bracket-title" name="title" type="text" placeholder="An Interesting Title"/>
+        <input th:field="*{title}" class="text-input" id="bracket-title" type="text" placeholder="An Interesting Title"/>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         <label class="input-label" for="bracket-description">
             Description:
         </label>
-        <textarea class="text-input" id="bracket-description" name="description" placeholder="Set an interesting description here"></textarea>
+        <textarea th:field="*{description}" class="text-input" id="bracket-description" placeholder="Set an interesting description here"></textarea>
+        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
         <label class="input-label" for="bracket-rules">
             Rules:
         </label>
-        <div class="rules-container">
-            <input class="text-input" id="bracket-rules" name="rules" type="text" placeholder="Add a new rule to the bracket">
-            <button class="add-button" type="button">Add</button>
-        </div>
-        <button class="submit-button main-button" type="submit">Submit</button>
+        <textarea th:field="*{rules}" class="text-input" id="bracket-rules" placeholder="Add a new rule to the bracket"></textarea>
+        <input class="submit-button main-button" type="submit" value="Submit"/>
     </fieldset>
 </form>
 </body>

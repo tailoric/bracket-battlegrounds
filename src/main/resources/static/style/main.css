@@ -1,0 +1,32 @@
+:root{
+    --color-main-400: #007cab;
+    --color-heavy-600: #005C88;
+    --color-light-200: #91E2FF;
+    --color-light-100: ghostwhite;
+    --color-dark-800: #090909;
+}
+body{
+    height: 90vh;
+    margin: 0;
+    font-family: sans-serif;
+}
+.button{
+    background: var(--color-light-100);
+}
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+}
+.main-button, .button{
+    box-shadow: 1px 1px 3px 2px rgba(0,0,0,0.2);
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+}
+.main-button{
+    background: var(--color-main-400);
+    color: white;
+}
