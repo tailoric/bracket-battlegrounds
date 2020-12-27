@@ -1,9 +1,12 @@
 package com.tailoric.bracketbattlegrounds.controller;
 
 import com.tailoric.bracketbattlegrounds.entity.Bracket;
+import com.tailoric.bracketbattlegrounds.service.interfaces.IAccountService;
 import com.tailoric.bracketbattlegrounds.service.interfaces.IBracketService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,11 +24,12 @@ import java.util.UUID;
 @Controller
 @RequestMapping("brackets")
 public class BracketsController {
-    final
-    IBracketService bracketService;
+    final IBracketService bracketService;
+    final IAccountService accountService;
 
-    public BracketsController(IBracketService bracketService) {
+    public BracketsController(IBracketService bracketService, IAccountService accountService) {
         this.bracketService = bracketService;
+        this.accountService = accountService;
     }
 
     @GetMapping(value = "/new")
@@ -35,9 +39,10 @@ public class BracketsController {
         return "brackets/new-bracket-form";
     }
     @GetMapping(value = "/{id}")
-    public String bracketPage(@PathVariable("id") UUID id, Model model){
+    public String bracketPage(@PathVariable("id") UUID id, Model model, @AuthenticationPrincipal OAuth2User principal){
         Bracket bracket = bracketService.findById(id);
         model.addAttribute("bracket", bracket);
+        model.addAttribute("username", principal.getAttribute("username"));
         return "brackets/bracket-page";
     }
     @PostMapping(
@@ -45,7 +50,7 @@ public class BracketsController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     public
-    ModelAndView createNewBracket(@Validated final Bracket bracket, BindingResult bindingResult, Model model){
+    ModelAndView createNewBracket(@Validated final Bracket bracket, BindingResult bindingResult, @AuthenticationPrincipal OAuth2User principal){
         var modelAndView = new ModelAndView();
         if(bindingResult.hasErrors()){
             modelAndView.setViewName("brackets/new-bracket-form");
@@ -53,7 +58,13 @@ public class BracketsController {
             modelAndView.addObject("bracket", bracket);
             return modelAndView;
         }
-        Optional<Bracket> created = Optional.ofNullable(bracketService.createNewBracket(bracket));
+        var discordId = (String) principal.getAttribute("id");
+        var creator = Optional.ofNullable(accountService.getUserByDiscordId(discordId));
+        if (creator.isEmpty()){
+            modelAndView.setViewName("redirect:/oauth2/authorization/discord");
+            return modelAndView;
+        }
+        Optional<Bracket> created = Optional.ofNullable(bracketService.createNewBracket(bracket, creator.get()));
         if(created.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Form input");
         }

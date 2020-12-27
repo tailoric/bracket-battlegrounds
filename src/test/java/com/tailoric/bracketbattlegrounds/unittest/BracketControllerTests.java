@@ -32,7 +32,7 @@ public class BracketControllerTests {
     public void createNewBracketShouldReturnRedirectUrl() throws Exception{
         UUID testUUID = UUID.fromString("6467c5fc-cdc6-4683-bcbc-af3536305552");
         when(returnBracket.getId()).thenReturn(testUUID);
-        when(service.createNewBracket(ArgumentMatchers.any())).thenReturn(returnBracket);
+        when(service.createNewBracket(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(returnBracket);
 
         this.mockMvc.perform(post("/brackets/new")
                 .param("title", "test Title")

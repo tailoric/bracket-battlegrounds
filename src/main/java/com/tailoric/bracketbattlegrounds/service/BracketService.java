@@ -1,5 +1,6 @@
 package com.tailoric.bracketbattlegrounds.service;
 
+import com.tailoric.bracketbattlegrounds.entity.Account;
 import com.tailoric.bracketbattlegrounds.entity.Bracket;
 import com.tailoric.bracketbattlegrounds.repository.BracketRepository;
 import com.tailoric.bracketbattlegrounds.service.interfaces.IBracketService;
@@ -15,7 +16,8 @@ public class BracketService implements IBracketService {
     }
 
     @Override
-    public Bracket createNewBracket(Bracket bracket) {
+    public Bracket createNewBracket(Bracket bracket, Account creator) {
+        bracket.setCreator(creator);
         return repository.save(bracket);
     }
 
@@ -25,8 +27,9 @@ public class BracketService implements IBracketService {
     }
 
     @Override
-    public Bracket createNewBracket(String title, String description, String rules) {
+    public Bracket createNewBracket(String title, String description, String rules, Account creator) {
         Bracket newBracket = new Bracket(title, description, rules);
+        newBracket.setCreator(creator);
         repository.save(newBracket);
         return newBracket;
     }
