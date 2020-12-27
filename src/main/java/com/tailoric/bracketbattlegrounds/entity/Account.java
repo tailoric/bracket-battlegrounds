@@ -8,10 +8,20 @@ import java.util.UUID;
 
 @Entity
 public class Account {
-    public Account(String discordId, String redditId, String username) {
+
+    public Account(String discordId, String discordToken, String redditId, String redditToken, String username) {
         this.discordId = discordId;
+        this.discordToken = discordToken;
         this.redditId = redditId;
+        this.redditToken = redditToken;
         this.username = username;
+    }
+
+    public static Account buildDiscordAccount(String discordId, String discordToken, String username) {
+        return new Account(discordId, discordToken, null, null, username);
+    }
+    public static Account buildRedditAccount(String redditId, String redditToken, String username) {
+        return new Account(null, null, redditId, redditToken, username);
     }
 
     @Id
@@ -21,8 +31,12 @@ public class Account {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;
+    @Column(unique = true)
     private String discordId;
+    private String discordToken;
+    @Column(unique = true)
     private String redditId;
+    private String redditToken;
 
     private String username;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
@@ -71,6 +85,21 @@ public class Account {
         this.myBrackets = myBrackets;
     }
 
+    public String getDiscordToken() {
+        return discordToken;
+    }
+
+    public void setDiscordToken(String discordToken) {
+        this.discordToken = discordToken;
+    }
+
+    public String getRedditToken() {
+        return redditToken;
+    }
+
+    public void setRedditToken(String redditToken) {
+        this.redditToken = redditToken;
+    }
 
     protected Account() {
 

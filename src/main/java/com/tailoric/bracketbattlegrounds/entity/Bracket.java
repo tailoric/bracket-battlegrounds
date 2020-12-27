@@ -27,6 +27,23 @@ public class Bracket {
     private String description;
     @Column(name="rules")
     private String rules;
+
+    public Account getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Account creator) {
+        this.creator = creator;
+    }
+
+    public List<Account> getAdministrators() {
+        return administrators;
+    }
+
+    public void setAdministrators(List<Account> administrators) {
+        this.administrators = administrators;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Account creator;
     @ManyToMany()
