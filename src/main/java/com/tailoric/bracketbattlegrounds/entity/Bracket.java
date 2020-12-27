@@ -3,11 +3,9 @@ package com.tailoric.bracketbattlegrounds.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -29,7 +27,18 @@ public class Bracket {
     private String description;
     @Column(name="rules")
     private String rules;
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Account creator;
+    @ManyToMany()
+    @JoinTable(name="bracket_admins",
+            joinColumns = {
+                    @JoinColumn(name = "bracket_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name="admin_id")
+            }
+    )
+    private List<Account> administrators;
     public String getTitle() {
         return title;
     }
