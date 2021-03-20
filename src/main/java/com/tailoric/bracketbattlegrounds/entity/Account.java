@@ -1,5 +1,7 @@
 package com.tailoric.bracketbattlegrounds.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -31,13 +33,23 @@ public class Account {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID id;
+    @Getter
+    @Setter
     @Column(unique = true)
     private String discordId;
+    @Getter
+    @Setter
     private String discordToken;
     @Column(unique = true)
+    @Getter
+    @Setter
     private String redditId;
+    @Getter
+    @Setter
     private String redditToken;
 
+    @Getter
+    @Setter
     private String username;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
     private List<Bracket> myBrackets;
@@ -52,54 +64,6 @@ public class Account {
 
     @ManyToMany(mappedBy = "administrators")
     private List<Bracket> adminOf;
-
-    public String getDiscordId() {
-        return discordId;
-    }
-
-    public void setDiscordId(String discordId) {
-        this.discordId = discordId;
-    }
-
-    public String getRedditId() {
-        return redditId;
-    }
-
-    public void setRedditId(String redditId) {
-        this.redditId = redditId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<Bracket> getMyBrackets() {
-        return myBrackets;
-    }
-
-    public void setMyBrackets(List<Bracket> myBrackets) {
-        this.myBrackets = myBrackets;
-    }
-
-    public String getDiscordToken() {
-        return discordToken;
-    }
-
-    public void setDiscordToken(String discordToken) {
-        this.discordToken = discordToken;
-    }
-
-    public String getRedditToken() {
-        return redditToken;
-    }
-
-    public void setRedditToken(String redditToken) {
-        this.redditToken = redditToken;
-    }
 
     protected Account() {
 

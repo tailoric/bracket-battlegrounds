@@ -32,18 +32,19 @@ public class BracketsController {
         this.accountService = accountService;
     }
 
-    @GetMapping(value = "/new")
-    public String newBracketForm(Model model){
-        Bracket bracket = new Bracket();
-        model.addAttribute("bracket", bracket);
-        return "brackets/new-bracket-form";
-    }
     @GetMapping(value = "/{id}")
     public String bracketPage(@PathVariable("id") UUID id, Model model, @AuthenticationPrincipal OAuth2User principal){
         Bracket bracket = bracketService.findById(id);
         model.addAttribute("bracket", bracket);
         model.addAttribute("username", principal.getAttribute("username"));
         return "brackets/bracket-page";
+    }
+
+    @GetMapping(value = "/new")
+    public String newBracketForm(Model model, @AuthenticationPrincipal OAuth2User principal){
+        Bracket bracket = new Bracket();
+        model.addAttribute("bracket", bracket);
+        return "brackets/new-bracket-form";
     }
     @PostMapping(
             value = "/new",

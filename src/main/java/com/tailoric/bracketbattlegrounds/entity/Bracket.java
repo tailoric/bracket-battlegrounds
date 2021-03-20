@@ -1,6 +1,8 @@
 package com.tailoric.bracketbattlegrounds.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,12 +23,12 @@ public class Bracket {
     private UUID id;
     @Column(name="title", nullable = false)
     @Size(min=1)
-    private String title;
+    @Getter @Setter private String title;
     @Size(min=1)
     @Column(name="description", nullable = false)
-    private String description;
+    @Getter @Setter private String description;
     @Column(name="rules")
-    private String rules;
+    @Getter @Setter private String rules;
 
     public Account getCreator() {
         return creator;
@@ -34,14 +36,6 @@ public class Bracket {
 
     public void setCreator(Account creator) {
         this.creator = creator;
-    }
-
-    public List<Account> getAdministrators() {
-        return administrators;
-    }
-
-    public void setAdministrators(List<Account> administrators) {
-        this.administrators = administrators;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -56,32 +50,6 @@ public class Bracket {
             }
     )
     private List<Account> administrators;
-    public String getTitle() {
-        return title;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-
-    public String getRules() {
-        return rules;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setRules(String rules) {
-        this.rules = rules;
-    }
-
     public Bracket() {
 
     }
