@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${bracket.getTitle()}"></title>
+    <title th:text="${bracket.title}"></title>
 </head>
 <body>
-<h1 th:text="${bracket.getTitle()}"></h1>
-<p th:text="${bracket.getDescription()}"></p>
-<p th:text="${bracket.getRules()}"></p>
-<p th:text="${bracket.getCreator().getUsername()}"></p>
-<p th:text="${bracket.getCreator().getDiscordId()}"></p>
+<h1 th:text="${bracket.title}"></h1>
+<p th:text="${bracket.description}"></p>
+<p th:text="${bracket.rules}"></p>
+<p th:text="${bracket.creator.username}"></p>
+<p th:text="${bracket.creator.discordId}"></p>
 </body>
 </html>
